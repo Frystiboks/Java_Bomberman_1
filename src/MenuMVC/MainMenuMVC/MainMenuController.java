@@ -7,9 +7,15 @@ public class MainMenuController {
     
     private MainMenuViewBuilder view;
 
-    public MainMenuController(Runnable setMenu, Runnable setChat, Scene scene){
+    /**
+     * initializes the controller
+     * @param setSettings used to set the settings view
+     * @param setChat used to set the chat view
+     * @param scene used to set a dummy view when play button is pressed
+     */
+    public MainMenuController(Runnable setSettings, Runnable setChat, Scene scene){
         MainMenuModel model = new MainMenuModel();
-        this.view = new MainMenuViewBuilder(setMenu, setChat ,scene);
+        this.view = new MainMenuViewBuilder(setSettings, setChat ,scene);
     }
     /**
      * Builds the view of the main menu and returns it

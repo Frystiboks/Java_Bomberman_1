@@ -13,7 +13,10 @@ public class MenuController {
     private SettingsController settings;
     private MainMenuController mainMenu;
     private ChatController chat;
-
+    /**
+     * Initializes the menu controller
+     * @param scene used for dummy purposes for the play button
+     */
     public MenuController(Scene scene){
         this.menuModel = new MenuModel();
         this.mainMenu = new MainMenuController(

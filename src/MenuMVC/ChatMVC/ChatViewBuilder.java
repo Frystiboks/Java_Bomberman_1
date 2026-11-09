@@ -23,7 +23,12 @@ public class ChatViewBuilder {
     private ObservableList<StringProperty> messages;
     private ListProperty<String> usernames;
     
-
+    /**
+     * constructor for the chat view builder
+     * @param setMenu sets the desired region as the displayed menu
+     * @param messages log of all the messages
+     * @param usernames list of all the usernames
+     */
     public ChatViewBuilder(Runnable setMenu, ObservableList<StringProperty> messages, ListProperty<String> usernames){
         this.setMenu = setMenu;
         this.usernames = usernames;
