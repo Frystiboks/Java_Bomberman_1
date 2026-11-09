@@ -20,21 +20,29 @@ public class MenuController {
             () -> view.setMenu(settings.getView()),
             () -> view.setMenu(chat.getView()),
             scene);
-        this.view = new MenuViewBuilder(menuModel.bgImg[0], scene, mainMenu.getView());
+        this.view = new MenuViewBuilder(menuModel, mainMenu.getView());
         this.settings = new SettingsController(
             this::setBg,
             () -> view.setMenu(mainMenu.getView()));
         this.chat = new ChatController(
             () -> view.setMenu(mainMenu.getView()));
     }
-
+    
+    /**
+     * Builds the view of the overal background region and returns it
+     * @return the background region.
+     */
     public Region getView(){
         return view.build();
     };
 
+    /**
+     * sets the background image by selecting it from a list of backgrounds.
+     * @param n integer from 0 to 2
+     */
     public void setBg(int n){
         if (n <= 2 && n >= 0 ){
-        view.setBg(menuModel.bgImg[n]);
+        view.setBg(menuModel.bg[n]);
         }
     }
 }

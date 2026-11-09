@@ -7,7 +7,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-
+/**
+ * Used to build the view of the main menu
+ * @param scene is only used to set a empty dummy root on the scene (will be replaced)
+ * @param setChat is the method that builds the Chat menu
+ * @param setSettings is the method that builds the settings menu
+ * MainMenuViewBuilder
+ */
 public class MainMenuViewBuilder {
     private Button play = new Button("Play");
     private Button settings = new Button("Settings");
@@ -23,13 +29,19 @@ public class MainMenuViewBuilder {
         this.setChat = setChat;
         this.scene = scene;
     }
-
+/**
+ * builds a vbox containing the main menu buttons
+ * @return a Region
+ */
     public Region build() {
         //create Vbox and set spacing to 10px
         VBox menuBox = new VBox(10);
         menuBox.setAlignment(Pos.CENTER); // Center buttons horizontally and vertically
 
+        //set dummy region on the scene
         play.setOnAction(_ -> scene.setRoot(new Group()));
+
+    
         settings.setOnAction(_ -> setSettings.run());
         chat.setOnAction(_ -> setChat.run());
         exit.setOnAction(_ -> Platform.exit());

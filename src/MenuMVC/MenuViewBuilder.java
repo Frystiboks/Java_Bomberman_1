@@ -1,35 +1,35 @@
 package MenuMVC;
 
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 
 public class MenuViewBuilder {
-    private ImageView bgImgView = new ImageView();
-    private final ObjectProperty<Region> menu = new SimpleObjectProperty<>();
     private Region startRegion;
-
-    public MenuViewBuilder(Image bgImg, Scene scene, Region startRegion){
-        this.bgImgView.setImage(bgImg);
-
+    private MenuModel model;
+    /**
+     * Initializes the MenuViewBuilder Class
+     * @param model the model containing all data fields
+     * @param startRegion the region used to create the first view.
+     */
+    public MenuViewBuilder(MenuModel model, Region startRegion){
+        this.model = model;
         this.startRegion = startRegion;
 
-        // Bind size to scene width/height
-        bgImgView.fitWidthProperty().bind(scene.widthProperty());
-        bgImgView.fitHeightProperty().bind(scene.heightProperty());
     }
-    
+    /**
+     * Builds the root view
+     * @return a border pane as a region
+     */
     public Region build() {
         BorderPane bp = new BorderPane();
+        bp.backgroundProperty().bind(model.background);
         StackPane stackPane = new StackPane();
-        stackPane.getChildren().addAll(bgImgView);
 
-        menu.addListener((obs, oldMenu, newMenu) -> {
+        model.menu.addListener((obs, oldMenu, newMenu) -> {
             if (oldMenu != null) {
                 stackPane.getChildren().remove(oldMenu);
             }
@@ -43,12 +43,18 @@ public class MenuViewBuilder {
 
         return bp;
     }
-
+    /**
+     * sets the menu region to the region in the parameter
+     * @param region that replaces the menu
+     */
     public void setMenu(Region region){
-        menu.set(region);
+        model.menu.set(region);
     }
-
-    public void setBg(Image bgImg){
-        bgImgView.setImage(bgImg);
+    /**
+     * sets the background
+     * @param bgImg a background image
+     */
+    public void setBg(BackgroundImage bgImg){
+        model.background.set(new Background(bgImg));
     }
 }

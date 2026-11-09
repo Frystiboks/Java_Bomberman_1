@@ -11,7 +11,10 @@ public class MainMenuController {
         MainMenuModel model = new MainMenuModel();
         this.view = new MainMenuViewBuilder(setMenu, setChat ,scene);
     }
-
+    /**
+     * Builds the view of the main menu and returns it
+     * @return the main menu region.
+     */
     public Region getView() {
         return view.build();
     }

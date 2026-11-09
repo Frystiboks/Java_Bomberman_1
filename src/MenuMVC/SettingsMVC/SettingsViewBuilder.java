@@ -22,6 +22,10 @@ public class SettingsViewBuilder {
         this.setMenu = setMenu;
     }
 
+    /**
+     * Builds the settings region
+     * @return a Region representings the settings
+     */
     public Region build() {
         //create Vbox and set spacing to 10px
         VBox menuBox = new VBox(10);
