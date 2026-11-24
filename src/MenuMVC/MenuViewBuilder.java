@@ -1,6 +1,5 @@
 package MenuMVC;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
 import javafx.scene.layout.BorderPane;

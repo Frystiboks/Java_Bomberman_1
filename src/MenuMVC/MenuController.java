@@ -1,5 +1,6 @@
 package MenuMVC;
 
+import MenuMVC.Game.Canvas.CanvasController;
 import MenuMVC.ChatMVC.ChatController;
 import MenuMVC.MainMenuMVC.MainMenuController;
 import MenuMVC.SettingsMVC.SettingsController;
@@ -13,22 +14,32 @@ public class MenuController {
     private SettingsController settings;
     private MainMenuController mainMenu;
     private ChatController chat;
+    private Runnable getMainMenu;
+    //private CanvasController canvas;
+    
     /**
      * Initializes the menu controller
      * @param scene used for dummy purposes for the play button
      */
     public MenuController(Scene scene){
         this.menuModel = new MenuModel();
+        
+        //this.canvas = new CanvasController(
+          //  () -> view.setMenu(mainMenu.getView()));
         this.mainMenu = new MainMenuController(
             () -> view.setMenu(settings.getView()),
             () -> view.setMenu(chat.getView()),
-            scene);
+            () -> view.setMenu(menuModel.game.getCanvasView()),
+            () -> menuModel.game.setUpGame());
         this.view = new MenuViewBuilder(menuModel, mainMenu.getView());
         this.settings = new SettingsController(
             this::setBg,
             () -> view.setMenu(mainMenu.getView()));
         this.chat = new ChatController(
             () -> view.setMenu(mainMenu.getView()));
+        
+        menuModel.game.setMainMenu(() -> view.setMenu(mainMenu.getView()));
+
     }
     
     /**

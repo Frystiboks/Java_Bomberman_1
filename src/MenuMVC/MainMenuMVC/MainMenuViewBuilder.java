@@ -19,15 +19,17 @@ public class MainMenuViewBuilder {
     private Button settings = new Button("Settings");
     private Button chat = new Button("Chat");
     private Button exit = new Button("Exit");
-    private Scene scene;
 
     private final Runnable setSettings;
     private final Runnable setChat;
+    private final Runnable setCanvas;
+    private final Runnable setUpGame;
     
-    public MainMenuViewBuilder(Runnable setSettings, Runnable setChat, Scene scene){
+    public MainMenuViewBuilder(Runnable setSettings, Runnable setChat, Runnable setCanvas, Runnable setUpGame){
         this.setSettings = setSettings;
         this.setChat = setChat;
-        this.scene = scene;
+        this.setCanvas = setCanvas;
+        this.setUpGame = setUpGame;
     }
 /**
  * builds a vbox containing the main menu buttons
@@ -38,8 +40,11 @@ public class MainMenuViewBuilder {
         VBox menuBox = new VBox(10);
         menuBox.setAlignment(Pos.CENTER); // Center buttons horizontally and vertically
 
-        //set dummy region on the scene
-        play.setOnAction(_ -> scene.setRoot(new Group()));
+        //setup game and set the canvas
+        play.setOnAction(_ -> {
+            setUpGame.run();
+            setCanvas.run();
+        });
 
     
         settings.setOnAction(_ -> setSettings.run());

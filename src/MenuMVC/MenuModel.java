@@ -1,5 +1,6 @@
 package MenuMVC;
 
+import MenuMVC.Game.GameController;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.image.Image;
@@ -20,32 +21,37 @@ public class MenuModel {
                                     BackgroundRepeat.NO_REPEAT, 
                                     BackgroundPosition.DEFAULT, 
                                     new BackgroundSize(
-                                        100, 100,
+                                        1, 1,
                                         true, true,
-                                        false, true
+                                        false, false
                                     )), 
                                 new BackgroundImage(bgImg[1],
                                     BackgroundRepeat.NO_REPEAT,
                                     BackgroundRepeat.NO_REPEAT, 
                                     BackgroundPosition.DEFAULT, 
                                     new BackgroundSize(
-                                        100, 100,
+                                        1, 1,
                                         true, true,
-                                        false, true
+                                        false, false
                                     )),
                                 new BackgroundImage(bgImg[2],
                                     BackgroundRepeat.NO_REPEAT,
                                     BackgroundRepeat.NO_REPEAT, 
                                     BackgroundPosition.DEFAULT, 
                                     new BackgroundSize(
-                                        100, 100,
+                                        1, 1,
                                         true, true,
-                                        false, true
+                                        false, false
                                     )),};
 
     public ObjectProperty<Background> background =
         new SimpleObjectProperty<>(new Background(bg[0]));
 
-
     public final ObjectProperty<Region> menu = new SimpleObjectProperty<>();
+
+    public GameController game;
+    
+    public MenuModel(){
+        game = new GameController();
+    }
 }

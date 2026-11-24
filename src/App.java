@@ -15,8 +15,8 @@ public class App extends Application{
     public void start(Stage stage) throws Exception {
         // Give the scene some root, width and height
         // Perhaps create a class that builds the root for you
-        int width = 500;
-        int height = 500;
+        int width = 650;
+        int height = 600;
 
 
         Scene scene = new Scene(new Group(), width, height);
@@ -25,7 +25,7 @@ public class App extends Application{
 
         scene.setRoot(ROOT);
         // Put a title on the window
-        stage.setTitle("My Addition Calculator");
+        stage.setTitle("Bomberman");
         stage.setScene(scene);
         stage.show();
         
