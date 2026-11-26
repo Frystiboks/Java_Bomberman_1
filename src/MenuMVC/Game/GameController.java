@@ -1,5 +1,7 @@
 package MenuMVC.Game;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -21,6 +23,8 @@ public class GameController {
     private boolean gameOver = false;
     private GameResult gameResult;
     private ExecutorService gameExecutor;
+    private ExecutorService collisionExecutor;
+
 
 
     public GameController(){
@@ -33,6 +37,7 @@ public class GameController {
         gameOver = false;
         gameResult = null;
         gameExecutor = Executors.newSingleThreadExecutor();
+        collisionExecutor = Executors.newCachedThreadPool();
     }
 
     public void setUpGame(){
@@ -95,16 +100,53 @@ public class GameController {
     };
 
     private Boolean collisionDetection(Player player, double dt){
+        boolean collisionDetected = false;
+        List<Future<Boolean>> futures = new ArrayList<>();
+
         for (Entity entity2 : model.entities) {
-           if (entity2.isInside(player.getNextPosition(dt)) && entity2 != player){
-                if (entity2.isOccupying(player)) {
-                    if (!isMovingAway(player, entity2, dt)) {
-                        return true;   
+            //Future
+            Future<Boolean> future = collisionExecutor.submit(() -> {
+                    if (entity2 != player &&
+                        entity2.isInside(player.getNextPosition(dt))) {
+
+                        if (entity2.isOccupying(player)) {
+                            if (!isMovingAway(player, entity2, dt)) {
+                                return true;
+                            }
+                        }
                     }
-                }
-           }
+
+                    return false;    
+                    });
+            futures.add(future);
         }
-        return false;
+
+        for (Future<Boolean> collision : futures) {
+            try {
+                if (collision.get()) {
+                    collisionDetected = true;
+                    break;
+                }
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            }
+        return collisionDetected;
+          // if (entity2.isInside(player.getNextPosition(dt)) && entity2 != player){
+            //    if (entity2.isOccupying(player)) {
+            //        if (!isMovingAway(player, entity2, dt)) {
+             //           return true;   
+               //     }
+              //  }
+          // }
+        //}
+
+
+        //return false;
     }
 
     private boolean isMovingAway(Player player, Entity entity, double dt) {
